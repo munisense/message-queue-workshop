@@ -8,9 +8,9 @@ Message Queue. First of all lets make sure everybody is set up.
 
 ## Prerequisites
 
-- Install Golang (https://go.dev/doc/install)
+- Install Golang ([go.dev/doc/install](https://go.dev/doc/install))
 - Verify the installation by running `go version` in your terminal.
-- Install an IDE, we recommend GoLand from JetBrains (https://www.jetbrains.com/go/)
+- Install an IDE, we recommend GoLand from JetBrains ([jetbrains.com/go](https://www.jetbrains.com/go/))
     - Should be free to use for students
 - Download this repository to your laptop
 

@@ -61,3 +61,11 @@ Now, consume from the amqp queue, log it, put the message on a channel and have 
 ```shell
 go run cmd/05_golang_also_has_queues/main.go
 ```
+
+Step 6: Publishing!
+
+Now you will be publishing your own message to the queue. Can you also read back this message by changing the routingkey in the code from step 4?
+
+```shell
+go run cmd/06_publish_to_an_exchange/main.go
+```

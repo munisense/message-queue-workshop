@@ -5,11 +5,13 @@ import (
 	"github.com/munisense/syntax-workshop-2023/internal/pkg/config"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/sirupsen/logrus"
+	"math/rand"
 )
 
 // Name of the queue to get messages from.
 // Try changing this name to 'results' and see what happens ;)
 const queue = "laeq"
+const exchange = "results"
 
 func main() {
 	log := logrus.New()
@@ -33,9 +35,29 @@ func main() {
 		log.WithError(err).Fatal("failed to open a new channel")
 	}
 
+	// Create (declare) a queue with a semi-random name, in order not to flood the server we set a time-to-live for any messages on the queue to 60 seconds
+	exclusiveQueueName := fmt.Sprintf("%s-%d", "syntax-workshop", rand.Intn(9999))
+	exclusiveQueue, err := ch.QueueDeclare(exclusiveQueueName, false, true, true, false, amqp.Table{"x-message-ttl": 60000})
+	if err != nil {
+		log.WithError(err).WithField("exclusiveQueueName", exclusiveQueueName).Fatal("failed to declare a queue")
+	}
+	log.WithField("exclusiveQueueName", exclusiveQueueName).Debug("exclusive queue declared")
+
+	// Our queue is now created but no data is being sent to the queue yet
+	// For that we need to "bind" our queue to an exchange (in this case "results")
+	// We can choose what data we want by supplying a routing key:
+	routingKey := "*.*.*.*.LAeq" // or use `#` for ALL data
+	err = ch.QueueBind(exclusiveQueue.Name, routingKey, exchange, false, nil)
+	if err != nil {
+		log.WithError(err).WithFields(logrus.Fields{"exclusiveQueueName": exclusiveQueueName, "routingKey": routingKey, "exchange": exchange}).Fatal("failed to bind queue to an exchange")
+	}
+	log.WithFields(logrus.Fields{"exclusiveQueueName": exclusiveQueueName, "routingKey": routingKey, "exchange": exchange}).Debug("bound queue to exchange")
+
+	// The rest of the code is equal to step 3 other than consuming from the newly created queue
+
 	// Tell the server to deliver us the messages from the queue.
 	messages, err := ch.Consume(
-		queue,
+		exclusiveQueue.Name,
 		"",
 		true,
 		false,

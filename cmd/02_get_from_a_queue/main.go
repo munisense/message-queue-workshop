@@ -25,7 +25,7 @@ func main() {
 		log.WithError(err).WithField("url", url).Fatal("failed to connect to the message queue")
 	}
 	log.Info("Connected to the message queue!")
-	defer conn.Close()
+	defer conn.Close() // "defer" = do this right before the application stops
 
 	// Next we create a channel, which is where most of the API for getting things done resides.
 	ch, err := conn.Channel()

@@ -26,18 +26,27 @@ go run cmd/01_hello_world/main.go
 
 # Step 2: Getting a message from a queue
 
-Copy the file `.env.default` to a new file called `.env`, and fill in the credentials.
+Copy the file `.env.default` to a new file called `.env`, and fill in the credentials (see the presentation).
 
 ```shell
 go run cmd/02_get_from_a_queue/main.go
 ```
 
-**Question**: Does everybody get all data?
-
 # Step 3: Consuming from a queue
 
-Now we will all be reading (consuming) messages of a queue.
+Now we will all be reading (consuming) messages of a queue. This application will keep running until you stop it with `ctrl-c`.
 
 ```shell
 go run cmd/03_consume_from_a_queue/main.go
 ```
+
+# Question: Does everybody get all the data?
+
+# Step 4: Getting all the data
+
+As seen in the presentation: "wie het eerst komt die het eerst maalt". We will now create our own (exclusive) queue in order to guarantee we receive all the data.
+
+```shell
+go run cmd/04_consume_all_messages_from_a_queue/main.go
+```
+

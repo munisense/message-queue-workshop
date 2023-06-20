@@ -52,7 +52,7 @@ As seen in the presentation: "wie het eerst komt die het eerst maalt". We will n
 go run cmd/04_consume_all_messages_from_a_queue/main.go
 ```
 
-Step 5: Golang also has queues
+# Step 5: Golang also has queues
 
 Oh sorry, they are called "channels" actually and don't have the "routingkey" that RabbitMQ uses. However, you can still use it to shovel data around.
 Perhaps we want to parse our JSON string into an object. Possible that is an expensive operation, or maybe you just want to split off the logic.
@@ -62,7 +62,7 @@ Now, consume from the amqp queue, log it, put the message on a channel and have 
 go run cmd/05_golang_also_has_queues/main.go
 ```
 
-Step 6: Publishing!
+# Step 6: Publishing!
 
 Now you will be publishing your own message to the queue. Can you also read back this message by changing the routingkey in the code from step 4?
 

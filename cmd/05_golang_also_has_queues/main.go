@@ -18,6 +18,7 @@ const queue = "laeq"
 const exchange = "results"
 
 func main() {
+	rand.Seed(time.Now().UnixNano()) // If you are using an older golang version <1.20 you need to initialize the random seed generator
 	log := logrus.New()
 	log.Level = logrus.DebugLevel
 
@@ -90,7 +91,7 @@ func main() {
 
 	// But: in this case we also want to parse the messages. Perhaps that is an API call, or it takes some time. You don't want to handle this in the main thread
 	// however how to you get your data in the parser? We can use golang channels (sort of queues but without routing keys) for that
-	// see line 75 for the channel creation and 83 for the posting (publishing) on that channel
+	// see line 79 for the channel creation and 87 for the posting (publishing) on that channel
 
 	go func() {
 		for body := range channel {

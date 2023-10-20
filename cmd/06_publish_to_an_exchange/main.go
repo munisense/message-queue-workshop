@@ -14,6 +14,7 @@ import (
 const exchange = "results"
 
 func main() {
+	rand.Seed(time.Now().UnixNano()) // If you are using an older golang version <1.20 you need to initialize the random seed generator
 	log := logrus.New()
 	log.Level = logrus.DebugLevel
 

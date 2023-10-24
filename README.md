@@ -10,7 +10,7 @@ Message Queue. First of all lets make sure everybody is set up.
 
 - Install Golang ([go.dev/doc/install](https://go.dev/doc/install))
 - Verify the installation by running `go version` in your terminal.
-    - If the output is similar to `go version go1.20.2 linux/amd64` you are good to Go!
+    - If the output is similar to `go version go1.21.0 linux/amd64` you are good to Go!
 - Install an IDE, we recommend GoLand from JetBrains ([jetbrains.com/go](https://www.jetbrains.com/go/))
     - Should be free to use for students.
 - Download this repository to your laptop.

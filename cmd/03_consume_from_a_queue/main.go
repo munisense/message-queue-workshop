@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/munisense/syntax-workshop-2023/internal/pkg/config"
+	"github.com/munisense/message-queue-workshop/internal/pkg/config"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/sirupsen/logrus"
 )

@@ -1,4 +1,4 @@
-# Syntax Workshop June 2023
+# Message Queue Workshop
 
 Welcome!
 
@@ -14,7 +14,7 @@ Message Queue. First of all lets make sure everybody is set up.
 - Install an IDE, we recommend GoLand from JetBrains ([jetbrains.com/go](https://www.jetbrains.com/go/))
     - Should be free to use for students.
 - Download this repository to your laptop.
-    - `git clone https://github.com/munisense/syntax-workshop-2023.git`
+    - `git clone https://github.com/munisense/message-queue-workshop.git`
 
 # Step 1: Hello World
 

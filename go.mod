@@ -1,4 +1,4 @@
-module github.com/munisense/syntax-workshop-2023
+module github.com/munisense/message-queue-workshop
 
 go 1.21
 

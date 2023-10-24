@@ -4,8 +4,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/munisense/syntax-workshop-2023/internal/pkg/config"
-	"github.com/munisense/syntax-workshop-2023/internal/pkg/message"
+	"github.com/munisense/message-queue-workshop/internal/pkg/config"
+	"github.com/munisense/message-queue-workshop/internal/pkg/message"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/sirupsen/logrus"
 	"math/rand"
@@ -42,7 +42,7 @@ func main() {
 	}
 
 	// Create (declare) a queue with a semi-random name, in order not to flood the server we set a time-to-live for any messages on the queue to 60 seconds
-	exclusiveQueueName := fmt.Sprintf("%s-%d", "syntax-workshop", rand.Intn(9999))
+	exclusiveQueueName := fmt.Sprintf("%s-%d", "message-queue-workshop", rand.Intn(9999))
 	exclusiveQueue, err := ch.QueueDeclare(exclusiveQueueName, false, true, true, false, amqp.Table{"x-message-ttl": 60000})
 	if err != nil {
 		log.WithError(err).WithField("exclusiveQueueName", exclusiveQueueName).Fatal("failed to declare a queue")

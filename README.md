@@ -8,13 +8,19 @@ Message Queue. First of all lets make sure everybody is set up.
 
 ## Prerequisites
 
-- Install Golang ([go.dev/doc/install](https://go.dev/doc/install))
+You can either use docker or follow the commands below to install golang locally:
+
+- Install Golang ([go.dev/doc/install](https://go.dev/doc/install)) or use the docker 
 - Verify the installation by running `go version` in your terminal.
     - If the output is similar to `go version go1.21.0 linux/amd64` you are good to Go!
 - Install an IDE, we recommend GoLand from JetBrains ([jetbrains.com/go](https://www.jetbrains.com/go/))
     - Should be free to use for students.
-- Download this repository to your laptop.
-    - `git clone https://github.com/munisense/message-queue-workshop.git`
+
+Download this repository to your laptop.
+
+```shell
+git clone https://github.com/munisense/message-queue-workshop.git
+```
 
 # Step 1: Hello World
 

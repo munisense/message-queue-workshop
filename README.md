@@ -24,6 +24,11 @@ We will be using `go run` here, this compiles and runs your code in a single com
 go run cmd/01_hello_world/main.go
 ```
 
+Or via docker compose:
+```shell
+docker compose run --rm golang go run /opt/project/cmd/01_hello_world/main.go
+```
+
 # Step 2: Getting a message from a queue
 
 Copy the file `.env.default` to a new file called `.env`, and fill in the credentials (see the presentation).
@@ -32,12 +37,22 @@ Copy the file `.env.default` to a new file called `.env`, and fill in the creden
 go run cmd/02_get_from_a_queue/main.go
 ```
 
+Or via docker compose:
+```shell
+docker compose run --rm golang go run /opt/project/cmd/02_get_from_a_queue/main.go
+```
+
 # Step 3: Consuming from a queue
 
 Now we will all be reading (consuming) messages of a queue. This application will keep running until you stop it with `ctrl-c`.
 
 ```shell
 go run cmd/03_consume_from_a_queue/main.go
+```
+
+Or via docker compose:
+```shell
+docker compose run --rm golang go run /opt/project/cmd/03_consume_from_a_queue/main.go
 ```
 
 # Question: Does everybody get all the data?
@@ -52,6 +67,11 @@ As seen in the presentation: "wie het eerst komt die het eerst maalt". We will n
 go run cmd/04_consume_all_messages_from_a_queue/main.go
 ```
 
+Or via docker compose:
+```shell
+docker compose run --rm golang go run /opt/project/cmd/04_consume_all_messages_from_a_queue/main.go
+```
+
 # Step 5: Golang also has queues
 
 Oh sorry, they are called "channels" actually and don't have the "routingkey" that RabbitMQ uses. However, you can still use it to shovel data around.
@@ -62,10 +82,20 @@ Now, consume from the amqp queue, log it, put the message on a channel and have 
 go run cmd/05_golang_also_has_queues/main.go
 ```
 
+Or via docker compose:
+```shell
+docker compose run --rm golang go run /opt/project/cmd/05_golang_also_has_queues/main.go
+```
+
 # Step 6: Publishing!
 
 Now you will be publishing your own message to the queue. Can you also read back this message by changing the routingkey in the code from step 4?
 
 ```shell
 go run cmd/06_publish_to_an_exchange/main.go
+```
+
+Or via docker compose:
+```shell
+docker compose run --rm golang go run /opt/project/cmd/06_publish_to_an_exchange/main.go
 ```

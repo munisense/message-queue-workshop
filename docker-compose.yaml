@@ -1,0 +1,8 @@
+services:
+  golang:
+    image: golang:1
+    volumes:
+      - .:/opt/project
+    working_dir: /opt/project
+    environment:
+      - GOPATH=/opt/project/pkg

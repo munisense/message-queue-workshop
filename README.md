@@ -10,11 +10,15 @@ Message Queue. First of all lets make sure everybody is set up.
 
 You can either use docker or follow the commands below to install golang locally:
 
-- Install Golang ([go.dev/doc/install](https://go.dev/doc/install)) or use the docker 
-- Verify the installation by running `go version` in your terminal.
-    - If the output is similar to `go version go1.21.0 linux/amd64` you are good to Go!
+- Install Golang or Docker
+- Golang: ([go.dev/doc/install](https://go.dev/doc/install))
+  - Verify you can run `go version` and that you have v1.21 or newer
+- Docker: ([https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/))
+  - Do `docker pull golang:1`
+  - Verify you can run `docker run golang:1 go version` and that you have v1.21 or newer
 - Install an IDE, we recommend GoLand from JetBrains ([jetbrains.com/go](https://www.jetbrains.com/go/))
     - Should be free to use for students.
+- You are now good to GO :)
 
 Download this repository to your laptop.
 

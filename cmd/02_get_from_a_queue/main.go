@@ -8,8 +8,7 @@ import (
 )
 
 // Name of the queue to get messages from.
-// Try changing this name to 'results' and see what happens ;)
-const queue = "laeq"
+const queue = "results"
 
 func main() {
 	log := logrus.New()
@@ -33,6 +32,7 @@ func main() {
 		log.WithError(err).Fatal("failed to open a new channel")
 	}
 
+	// Get a single message (delivery) from the queue.
 	delivery, ok, err := ch.Get(queue, true)
 	if err != nil {
 		log.WithError(err).Fatal("failed to get a message")

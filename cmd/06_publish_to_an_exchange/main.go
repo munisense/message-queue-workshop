@@ -7,6 +7,9 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/sirupsen/logrus"
 	"math/rand"
+	"os"
+	"os/signal"
+	"syscall"
 	"time"
 )
 
@@ -14,9 +17,9 @@ import (
 const exchange = "results"
 
 func main() {
-	rand.Seed(time.Now().UnixNano()) // If you are using an older golang version <1.20 you need to initialize the random seed generator
 	log := logrus.New()
 	log.Level = logrus.DebugLevel
+	log.Info("Starting application.... ctrl-c to quit")
 
 	conf := config.LoadConfig()
 
@@ -67,6 +70,8 @@ func main() {
 	}()
 
 	// Block the main Goroutine, otherwise we would exit
-	var forever chan struct{}
-	<-forever
+	quitChannel := make(chan os.Signal, 1)
+	signal.Notify(quitChannel, syscall.SIGINT, syscall.SIGTERM)
+	<-quitChannel
+	log.Info("Quitting application!")
 }

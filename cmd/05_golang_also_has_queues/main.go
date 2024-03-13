@@ -9,18 +9,22 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/sirupsen/logrus"
 	"math/rand"
+	"os"
+	"os/signal"
+	"syscall"
 	"time"
 )
 
-// Name of the queue to get messages from.
-// Try changing this name to 'results' and see what happens ;)
-const queue = "laeq"
+// In this code we are creating our own queue and binding it to the 'results' exchange
 const exchange = "results"
 
+const routingKey = "#" // use for ALL data
+//const routingKey = "#.Sound2.LAeq" // or use for only sound data
+
 func main() {
-	rand.Seed(time.Now().UnixNano()) // If you are using an older golang version <1.20 you need to initialize the random seed generator
 	log := logrus.New()
 	log.Level = logrus.DebugLevel
+	log.Info("Starting application.... ctrl-c to quit")
 
 	conf := config.LoadConfig()
 
@@ -52,7 +56,6 @@ func main() {
 	// Our queue is now created but no data is being sent to the queue yet
 	// For that we need to "bind" our queue to an exchange (in this case "results")
 	// We can choose what data we want by supplying a routing key:
-	routingKey := "*.*.*.*.LAeq" // or use `#` for ALL data
 	err = ch.QueueBind(exclusiveQueue.Name, routingKey, exchange, false, nil)
 	if err != nil {
 		log.WithError(err).WithFields(logrus.Fields{"exclusiveQueueName": exclusiveQueueName, "routingKey": routingKey, "exchange": exchange}).Fatal("failed to bind queue to an exchange")
@@ -75,7 +78,7 @@ func main() {
 
 	// Fire off a Goroutine that will wait and receive messages from the queue!
 	// This channel will hold a maximum of 10 entries, because our parsing (below) is really slow this channel will get full
-	// Once that happens the code will be blocked and you can see the messages filling the rabbitmq queue
+	// Once that happens the code will be blocked, and you can see the messages filling the rabbitmq queue
 	channel := make(chan string, 10)
 	go func() {
 		for d := range messages {
@@ -89,9 +92,17 @@ func main() {
 		}
 	}()
 
+	// Print the amount of results in our internal channel (every second)
+	go func() {
+		for {
+			log.WithField("amount", len(channel)).Debug("Amount of results in our golang channel")
+			time.Sleep(1 * time.Second)
+		}
+	}()
+
 	// But: in this case we also want to parse the messages. Perhaps that is an API call, or it takes some time. You don't want to handle this in the main thread
 	// however how to you get your data in the parser? We can use golang channels (sort of queues but without routing keys) for that
-	// see line 79 for the channel creation and 87 for the posting (publishing) on that channel
+	// see line 82 for the channel creation and 90 for the posting (publishing) on that channel
 
 	go func() {
 		for body := range channel {
@@ -110,6 +121,8 @@ func main() {
 	}()
 
 	// Block the main Goroutine, otherwise we would exit
-	var forever chan struct{}
-	<-forever
+	quitChannel := make(chan os.Signal, 1)
+	signal.Notify(quitChannel, syscall.SIGINT, syscall.SIGTERM)
+	<-quitChannel
+	log.Info("Quitting application!")
 }

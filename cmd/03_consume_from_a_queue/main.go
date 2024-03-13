@@ -5,15 +5,18 @@ import (
 	"github.com/munisense/message-queue-workshop/internal/pkg/config"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/sirupsen/logrus"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 // Name of the queue to get messages from.
-// Try changing this name to 'results' and see what happens ;)
-const queue = "laeq"
+const queue = "results"
 
 func main() {
 	log := logrus.New()
 	log.Level = logrus.DebugLevel
+	log.Info("Starting application.... ctrl-c to quit")
 
 	conf := config.LoadConfig()
 
@@ -58,6 +61,8 @@ func main() {
 	}()
 
 	// Block the main Goroutine, otherwise we would exit
-	var forever chan struct{}
-	<-forever
+	quitChannel := make(chan os.Signal, 1)
+	signal.Notify(quitChannel, syscall.SIGINT, syscall.SIGTERM)
+	<-quitChannel
+	log.Info("Quitting application!")
 }

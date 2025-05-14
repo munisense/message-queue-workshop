@@ -18,8 +18,8 @@ import (
 // In this code we are creating our own queue and binding it to the 'results' exchange
 const exchange = "results"
 
-const routingKey = "#" // use for ALL data
-//const routingKey = "#.Sound2.LAeq" // or use for only sound data
+// const routingKey = "#" // use for ALL data
+const routingKey = "#.Sound2.LAeq" // or use for only sound data
 
 func main() {
 	log := logrus.New()
@@ -77,9 +77,9 @@ func main() {
 	}
 
 	// Fire off a Goroutine that will wait and receive messages from the queue!
-	// This channel will hold a maximum of 10 entries, because our parsing (below) is really slow this channel will get full
+	// This channel will hold a maximum of 5 entries, because our parsing (below) is really slow this channel will get full
 	// Once that happens the code will be blocked, and you can see the messages filling the rabbitmq queue
-	channel := make(chan string, 10)
+	channel := make(chan string, 5)
 	go func() {
 		for d := range messages {
 			log.WithFields(logrus.Fields{

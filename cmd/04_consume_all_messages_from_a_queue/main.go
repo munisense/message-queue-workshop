@@ -14,8 +14,8 @@ import (
 // In this code we are creating our own queue and binding it to the 'results' exchange
 const exchange = "results"
 
-const routingKey = "#" // use for ALL data
-//const routingKey = "#.Sound2.LAeq" // or use for only sound data
+// const routingKey = "#" // use for ALL data
+const routingKey = "#.Sound2.LAeq" // or use for only sound data
 
 func main() {
 	log := logrus.New()

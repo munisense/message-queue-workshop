@@ -12,7 +12,8 @@ You can either use docker or follow the commands below to install golang locally
 
 - Install Golang or Docker
 - Golang: ([go.dev/doc/install](https://go.dev/doc/install))
-  - Verify you can run `go version` and that you have v1.21 or newer
+  - Verify you can run `go version` and that you have v1.24 or newer (older versions will probably work too, but we
+    recommend using the latest version)
 - Docker: ([https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/))
   - Do `docker pull golang:1`
   - Verify you can run `docker run golang:1 go version` and that you have v1.21 or newer

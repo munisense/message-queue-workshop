@@ -6,6 +6,8 @@ Today we will be showing what a Message Queue is and why it's awesome. We will b
 programming language [Golang](https://go.dev/), because it's builtin concurrency makes it a breeze to work with a
 Message Queue. First of all lets make sure everybody is set up.
 
+You can follow this readme or open it via [GitHub Pages](https://munisense.github.io/message-queue-workshop/)
+
 ## Prerequisites
 
 You can either use docker or follow the commands below to install golang locally:

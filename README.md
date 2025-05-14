@@ -18,7 +18,7 @@ You can either use docker or follow the commands below to install golang locally
     recommend using the latest version)
 - Docker: ([https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/))
   - Do `docker pull golang:1`
-  - Verify you can run `docker run golang:1 go version` and that you have v1.21 or newer
+  - Verify you can run `docker run golang:1 go version` and that you have v1.24 or newer
 - Install an IDE, we recommend GoLand from JetBrains ([jetbrains.com/go](https://www.jetbrains.com/go/))
     - Should be free to use for students.
 - You are now good to GO :)
